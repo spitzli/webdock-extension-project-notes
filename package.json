@@ -1,6 +1,6 @@
 {
   "name": "project-notes",
-  "version": "0.1.0",
+  "version": "0.1.0-alpha.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,7 +9,7 @@
     "test": "tsx --test tests/*.test.ts"
   },
   "dependencies": {
-    "@webdock/plugin-sdk": "0.1.0"
+    "@webdock/plugin-sdk": "file:vendor/webdock-plugin-sdk-0.1.0.tgz"
   },
   "devDependencies": {
     "typescript": "^5",
