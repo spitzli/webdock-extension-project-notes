@@ -18,9 +18,9 @@ Public developer preview. Notes, project isolation, optimistic editing, reminder
 
 Real screenshots from the local authoring host:
 
-![Project-scoped note editor](screenshots/project-notes-editor.png)
+![Project-scoped note editor](https://raw.githubusercontent.com/spitzli/webdock-extension-project-notes/v0.1.0-alpha.1/screenshots/project-notes-editor.png)
 
-![A due reminder processed by BullMQ](screenshots/project-notes-reminder.png)
+![A due reminder processed by BullMQ](https://raw.githubusercontent.com/spitzli/webdock-extension-project-notes/v0.1.0-alpha.1/screenshots/project-notes-reminder.png)
 
 ## Build and test
 
