@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
   <meta charset="utf-8" /><meta
     name="viewport"
     content="width=device-width,initial-scale=1"
@@ -245,68 +245,67 @@
   </style>
   <header>
     <div>
-      <h1>Projektnotizen</h1>
-      <p id="project">Verbindung zum Projekt wird hergestellt …</p>
+      <h1>Project Notes</h1>
+      <p id="project">Connecting to your project…</p>
     </div>
-    <button id="new" type="button">+ Neue Notiz</button>
+    <button id="new" type="button">+ New note</button>
   </header>
-  <p id="status" role="status" aria-live="polite">Warte auf den Host …</p>
+  <p id="status" role="status" aria-live="polite">Waiting for the host…</p>
   <div class="workspace">
     <aside>
-      <p class="hint"><span id="count">0</span> Notizen</p>
+      <p class="hint"><span id="count">0 notes</span></p>
       <div id="list"></div>
       <p id="empty">
-        Hier ist Platz für Entscheidungen, Ideen und nächste Schritte.
+        Keep decisions, ideas and next steps together.
       </p>
     </aside>
     <main>
       <form id="form">
         <div class="field">
-          <label for="title">TITEL</label
+          <label for="title">TITLE</label
           ><input
             id="title"
             maxlength="100"
             required
-            placeholder="Was soll im Projekt bleiben?"
+            placeholder="What should this project remember?"
           />
         </div>
         <div class="field">
-          <label for="body">NOTIZ</label
+          <label for="body">NOTE</label
           ><textarea
             id="body"
             maxlength="5000"
-            placeholder="Kontext, Entscheidung oder der nächste Schritt …"
+            placeholder="Context, a decision or the next step…"
           ></textarea>
         </div>
         <div class="row">
           <div class="field">
-            <label for="reminder">ERINNERN AM · OPTIONAL</label
+            <label for="reminder">REMIND ME · OPTIONAL</label
             ><input id="reminder" type="datetime-local" />
             <p class="hint">
-              Innerhalb der nächsten 7 Tage. Fällige Erinnerungen erscheinen
-              hier im Panel.
+              Within the next 7 days. Due reminders appear in this panel.
             </p>
           </div>
           <button id="clear" class="quiet field" type="button">
-            Ohne Erinnerung
+            Clear reminder
           </button>
         </div>
         <div class="actions">
-          <button id="delete" type="button" class="quiet" hidden>Löschen</button
+          <button id="delete" type="button" class="quiet" hidden>Delete</button
           ><span></span
           ><button id="save" class="primary" type="submit">
-            Notiz speichern
+            Save note
           </button>
         </div>
       </form>
     </main>
   </div>
   <dialog id="confirm">
-    <h2 id="confirm-title">Änderungen verwerfen?</h2>
-    <p id="confirm-body">Deine ungespeicherten Änderungen gehen verloren.</p>
+    <h2 id="confirm-title">Discard changes?</h2>
+    <p id="confirm-body">Your unsaved changes will be lost.</p>
     <div class="row">
-      <button id="no">Abbrechen</button
-      ><button id="yes" class="primary">Verwerfen</button>
+      <button id="no">Cancel</button
+      ><button id="yes" class="primary">Discard</button>
     </div>
   </dialog>
   <script>
@@ -344,9 +343,9 @@
       return (
         fields() === baseline ||
         (await confirmAction(
-          "Änderungen verwerfen?",
-          "Deine ungespeicherten Änderungen gehen verloren.",
-          "Verwerfen",
+          "Discard changes?",
+          "Your unsaved changes will be lost.",
+          "Discard",
         ))
       );
     }
@@ -368,7 +367,7 @@
     }
     function render() {
       $("list").replaceChildren();
-      $("count").textContent = String(notes.length);
+      $("count").textContent = notes.length + (notes.length === 1 ? " note" : " notes");
       $("empty").hidden = notes.length > 0;
       for (const note of notes) {
         const b = document.createElement("button");
@@ -381,11 +380,11 @@
         const sub = document.createElement("small");
         sub.textContent =
           note.reminderState === "due"
-            ? "Erinnerung fällig"
+            ? "Reminder due"
             : note.reminderAt
-              ? "Erinnerung: " +
-                new Date(note.reminderAt).toLocaleString("de-DE")
-              : new Date(note.updatedAt).toLocaleDateString("de-DE");
+              ? "Reminder: " +
+                new Date(note.reminderAt).toLocaleString("en-US")
+              : new Date(note.updatedAt).toLocaleDateString("en-US");
         if (note.reminderState === "due") sub.className = "due";
         b.append(title, sub);
         b.onclick = async () => {
@@ -395,12 +394,12 @@
       }
     }
     function action(name, input) {
-      if (!port) return Promise.reject(Error("Noch keine Verbindung zum Host"));
+      if (!port) return Promise.reject(Error("Not connected to the host yet"));
       const id = String(++sequence);
       return new Promise((resolve, reject) => {
         const timer = setTimeout(() => {
           pending.delete(id);
-          reject(Error("Zeitüberschreitung; bitte neu laden und prüfen"));
+          reject(Error("Request timed out; reload and check before retrying"));
         }, 15000);
         pending.set(id, { resolve, reject, timer });
         port.postMessage({ id, type: "action", name, input });
@@ -429,7 +428,7 @@
       revision = data.revision;
       if (wasExisting) select(notes.find((n) => n.id === selected) ?? null);
       else render();
-      status("Projektbezogen gespeichert · " + notes.length + " Notizen");
+      status("Saved to this project · " + notes.length + (notes.length === 1 ? " note" : " notes"));
     }
     $("new").onclick = async () => {
       if (await maySwitch()) select(null);
@@ -456,7 +455,7 @@
         notes = data.notes;
         revision = data.revision;
         select(notes.find((n) => n.id === current));
-        status("Notiz gespeichert");
+        status("Note saved");
       } catch (e) {
         status(e.message, true);
       } finally {
@@ -466,9 +465,9 @@
     $("delete").onclick = async () => {
       if (
         !(await confirmAction(
-          "Notiz löschen?",
-          "Diese Notiz wird aus dem Projekt entfernt.",
-          "Löschen",
+          "Delete note?",
+          "This note will be removed from the project.",
+          "Delete",
         ))
       )
         return;
@@ -482,7 +481,7 @@
         notes = data.notes;
         revision = data.revision;
         select(null);
-        status("Notiz gelöscht");
+        status("Note deleted");
       } catch (e) {
         status(e.message, true);
       } finally {
