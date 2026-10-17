@@ -1,13 +1,13 @@
 {
   "name": "project-notes",
-  "version": "0.1.0",
+  "version": "0.1.0-alpha.1",
   "kind": "extension",
   "description": "Project notes with revision-safe editing and background reminders.",
   "protocolVersion": 1,
   "sdkVersion": 1,
   "dataProtocolVersion": 1,
   "coreVersion": ">=0.1.0 <1.0.0",
-  "image": "ghcr.io/spitzli/project-notes@sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "image": "ghcr.io/spitzli/webdock-extension-project-notes@sha256:1f0d9592daea577bd6a65d49f68b5431e6fa67948089c64c57b4ad21914073e8",
   "dependencies": [],
   "capabilities": [
     "plugin.data.read",
@@ -104,5 +104,31 @@
   ],
   "events": [],
   "secrets": [],
-  "httpBindings": []
+  "httpBindings": [],
+  "category": "productivity",
+  "tags": [
+    "notes",
+    "projects",
+    "reminders",
+    "alpha"
+  ],
+  "readme": "README.md",
+  "homepage": "https://github.com/spitzli/webdock-extension-project-notes",
+  "documentation_url": "https://github.com/spitzli/webdock-extension-project-notes#readme",
+  "support": {
+    "issues_url": "https://github.com/spitzli/webdock-extension-project-notes/issues"
+  },
+  "screenshots": [
+    {
+      "url": "screenshots/project-notes-editor.png",
+      "caption": "Project-scoped note editor in the local authoring host",
+      "alt": "Project Notes editor with a launch checklist"
+    },
+    {
+      "url": "screenshots/project-notes-reminder.png",
+      "caption": "A due reminder processed through Core BullMQ",
+      "alt": "Project Notes panel showing an overdue reminder"
+    }
+  ],
+  "icon": "assets/icon.svg"
 }
