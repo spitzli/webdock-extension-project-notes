@@ -8,7 +8,7 @@ Project-scoped notes and reminders for Webdock. Kind: `extension`.
 - Core PostgreSQL storage, RLS and BullMQ; no database or Redis credentials in the plugin.
 - Pending reminders are retained in the note document. A declared 60-second reconciliation job repairs missed delivery, including exhausted retries.
 
-## 0.1.0-alpha.1
+## 0.1.0-alpha.2
 
 Public developer preview. Notes, project isolation, optimistic editing, reminders and restart retention have been tested locally with actual PostgreSQL RLS, Core APIs and BullMQ.
 
@@ -18,9 +18,9 @@ Public developer preview. Notes, project isolation, optimistic editing, reminder
 
 Real screenshots from the local authoring host:
 
-![Project-scoped note editor](https://raw.githubusercontent.com/spitzli/webdock-extension-project-notes/v0.1.0-alpha.1/screenshots/project-notes-editor.png)
+![Project-scoped note editor](https://raw.githubusercontent.com/spitzli/webdock-extension-project-notes/v0.1.0-alpha.2/screenshots/project-notes-editor.png)
 
-![A due reminder processed by BullMQ](https://raw.githubusercontent.com/spitzli/webdock-extension-project-notes/v0.1.0-alpha.1/screenshots/project-notes-reminder.png)
+![A due reminder processed by BullMQ](https://raw.githubusercontent.com/spitzli/webdock-extension-project-notes/v0.1.0-alpha.2/screenshots/project-notes-reminder.png)
 
 ## Build and test
 
