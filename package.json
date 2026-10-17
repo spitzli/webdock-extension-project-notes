@@ -1,0 +1,19 @@
+{
+  "name": "project-notes",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "test": "tsx --test tests/*.test.ts"
+  },
+  "dependencies": {
+    "@webdock/plugin-sdk": "0.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^24",
+    "tsx": "^4.23.15"
+  }
+}

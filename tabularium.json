@@ -1,0 +1,108 @@
+{
+  "name": "project-notes",
+  "version": "0.1.0",
+  "kind": "extension",
+  "description": "Project notes with revision-safe editing and background reminders.",
+  "protocolVersion": 1,
+  "sdkVersion": 1,
+  "dataProtocolVersion": 1,
+  "coreVersion": ">=0.1.0 <1.0.0",
+  "image": "ghcr.io/spitzli/project-notes@sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "dependencies": [],
+  "capabilities": [
+    "plugin.data.read",
+    "plugin.data.write",
+    "plugin.jobs.enqueue"
+  ],
+  "schemaVersion": 1,
+  "readableSchema": {
+    "min": 1,
+    "max": 1
+  },
+  "migrations": [],
+  "tables": [],
+  "services": {
+    "required": [
+      {
+        "name": "data",
+        "version": 1
+      },
+      {
+        "name": "jobs",
+        "version": 1
+      }
+    ],
+    "optional": []
+  },
+  "configuration": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "actions": [
+    {
+      "name": "notes.list",
+      "intent": "read",
+      "capabilities": [
+        "plugin.data.read"
+      ]
+    },
+    {
+      "name": "notes.save",
+      "intent": "write",
+      "capabilities": [
+        "plugin.data.read",
+        "plugin.data.write",
+        "plugin.jobs.enqueue"
+      ]
+    },
+    {
+      "name": "notes.delete",
+      "intent": "write",
+      "capabilities": [
+        "plugin.data.read",
+        "plugin.data.write"
+      ]
+    }
+  ],
+  "jobs": [
+    {
+      "name": "notes.remind",
+      "capabilities": [
+        "plugin.data.read",
+        "plugin.data.write"
+      ]
+    },
+    {
+      "name": "notes.reconcile",
+      "intervalSeconds": 60,
+      "capabilities": [
+        "plugin.data.read",
+        "plugin.data.write",
+        "plugin.jobs.enqueue"
+      ]
+    }
+  ],
+  "navigation": [
+    {
+      "id": "notes",
+      "label": "Project Notes",
+      "path": "/ui/notes"
+    }
+  ],
+  "slots": [
+    {
+      "id": "notes-panel",
+      "slot": "project.overview.panel",
+      "order": 100,
+      "path": "/ui/notes",
+      "capabilities": [
+        "plugin.data.read"
+      ],
+      "label": "Project Notes"
+    }
+  ],
+  "events": [],
+  "secrets": [],
+  "httpBindings": []
+}
