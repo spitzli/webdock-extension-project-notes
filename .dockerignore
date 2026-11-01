@@ -2,3 +2,13 @@ node_modules
 dist
 .git
 .env*
+**/node_modules
+.npmrc
+.runtime-test
+.dev-local
+.cache
+/release
+/private
+/secrets
+/data
+**/target
