@@ -1,5 +1,48 @@
 # Project Notes
 
+![Project Notes icon](assets/icon.svg)
+
+Keep notes and reminders alongside the project they belong to.
+
+## What you can do
+
+Create, edit and delete notes; display due reminders; protect concurrent edits with revisions.
+
+## Setup and access
+
+An operator must install a compatible host integration with Core storage, jobs and project grants. Reminders are shown in the panel; no email or external notification is sent.
+
+## Data and security
+
+Core PostgreSQL row-level security scopes documents to their project. The runtime receives no database or Redis credentials. Deleting a note invalidates older reminder versions.
+
+## Status and limits
+
+Public developer alpha. Production installer, invocation and host UI integration remain release gates. Limits: 100 notes, 100-character title, 5,000-character text, 24 KiB per project document and reminders up to seven days ahead.
+
+Catalog publication does not activate the plugin, enable public signup or grant
+access to any customer resource. A new presentation release must use a new version;
+previously signed releases and their assets stay immutable.
+
+## Gallery context
+
+The screenshots below show existing local authoring/test views with fictional
+project data. They do not attest a live provider or customer deployment.
+
+## Catalog source
+
+`.tabularium` is the complete catalog-refresh source. It retains the immutable
+runtime image and full protocol/access contract of the currently released
+`0.1.0-alpha.2` and adds the prepared presentation assets. Refresh it only from a
+reviewed immutable source commit. This does not replace signed release assets
+or activate the runtime.
+
+## Technical reference
+
+The retained implementation notes below include platform integration procedures.
+Commands referring to Core, `tools/` or `apps/console` require the [platform source
+checkout](https://github.com/spitzli/webdock); they are not standalone setup steps.
+
 Project-scoped notes and reminders for Webdock. Kind: `extension`.
 
 - Create, edit and delete notes in a project overview panel.
@@ -52,8 +95,8 @@ Limits: 100 notes, title 100 characters, text 5000 characters, total project doc
 
 The release includes an immutable OCI image reference and an identical universal JSON descriptor. Publishing this developer preview does not activate a plugin in a Webdock project.
 
-## EU CI
+## Blacksmith CI
 
-Source pushes and trusted same-repository pull requests run the frozen dependency install, build and unit tests through the dedicated rootless EU builder. External fork PRs cannot run on this persistent trusted runner. No hosted fallback, Docker daemon or provider/customer credentials are used.
+The Blacksmith GitHub App is installed for the exact 16 Spitzli platform, plugin and SDK repositories. The configured and observed region is `us-west`, under the owner’s EU-only exception for Spitzli’s own GitHub CI. The official managed-builder probe passed with `nofallback: true`. These prepared workflows use only Blacksmith; actual per-repository source checks and publication of the regular workflows remain pending. Provider and customer credentials are not used for source checks, and no builder fallback is allowed.
 
-The manual `Plugin EU build` workflow can push a checked image candidate by enabling `publish_image`. It records the immutable image/source identity; existing versioned registry manifests and releases are unchanged. A new registry version still requires its proper manifest and signed integrity verification.
+The prepared manual `Plugin Blacksmith build` workflow can push a checked image candidate by enabling `publish_image`. It records the immutable image/source identity; existing versioned registry manifests and releases are unchanged. A new registry version still requires its proper manifest and signed integrity verification.
